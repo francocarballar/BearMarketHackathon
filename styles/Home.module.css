@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   min-height: calc(100vh - 80px);
+  background-color: var(--background-color);
 }
 
 .section_signin {

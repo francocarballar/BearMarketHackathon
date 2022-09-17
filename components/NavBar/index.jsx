@@ -5,28 +5,39 @@ import { MdMenu } from 'react-icons/md'
 import { BsFillDice5Fill } from 'react-icons/bs'
 import { FaHistory } from 'react-icons/fa'
 import { MdSettings } from 'react-icons/md'
+import { BsFillPatchCheckFill } from 'react-icons/bs'
 
 function NavBar () {
   const styleSpan = {
     backgroundColor: '#06C0B5'
   }
   const [styleHome, setStyleHome] = useState({})
-  const [styleBed, setStyleBed] = useState({})
+  const [styleResults, setStyleResults] = useState({})
+  const [styleHistory, setStyleHistory] = useState({})
   const [styleSettings, setStyleSettings] = useState({})
   const clickHome = () => {
     setStyleHome(styleSpan)
-    setStyleBed({})
+    setStyleResults({})
+    setStyleHistory({})
     setStyleSettings({})
   }
-  const clickBed = () => {
+  const clickResults = () => {
     setStyleHome({})
-    setStyleBed(styleSpan)
+    setStyleResults(styleSpan)
+    setStyleHistory({})
+    setStyleSettings({})
+  }
+  const clickHistory = () => {
+    setStyleHome({})
+    setStyleResults({})
+    setStyleHistory(styleSpan)
     setStyleSettings({})
   }
   const clickSettings = () => {
     setStyleSettings(styleSpan)
     setStyleHome({})
-    setStyleBed({})
+    setStyleResults({})
+    setStyleHistory({})
   }
   return (
     <nav className={`${styles.navBar} bg-black text-white`}>
@@ -39,8 +50,13 @@ function NavBar () {
             <BsFillDice5Fill />
           </li>
         </Link>
+        <Link href='/results'>
+          <li title='Results' onClick={clickResults} style={styleResults}>
+            <BsFillPatchCheckFill />
+          </li>
+        </Link>
         <Link href='/history'>
-          <li title='History' onClick={clickBed} style={styleBed}>
+          <li title='History' onClick={clickHistory} style={styleHistory}>
             <FaHistory />
           </li>
         </Link>
