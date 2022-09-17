@@ -40,9 +40,14 @@ function Header () {
       setViewTablet(true)
     }
   }
+  let width
   useEffect(() => {
+    width = window.innerWidth
+    if (width >= 768) {
+      setViewTablet(true)
+    }
     window.addEventListener('resize', updateDimensions)
-  })
+  }, [stateWidth])
   return (
     <>
       <Navbar isBordered={isDark} variant='sticky'>
@@ -104,7 +109,9 @@ function Header () {
                   Help & Feedback
                 </Dropdown.Item>
                 <Dropdown.Item key='logout' withDivider color='error'>
-                  Log Out
+                  <a onClick={() => signOut({ redirect: '/signin' })}>
+                    Log Out
+                  </a>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

@@ -6,6 +6,7 @@ function Provider ({ children }) {
   const [myAddress, setAddress] = useState('')
   const [mySession, setMySession] = useState({})
   const [visibleModal, setVisibleModal] = useState(false)
+  const [date, setDate] = useState('')
   return (
     <Context.Provider
       value={{
@@ -14,7 +15,9 @@ function Provider ({ children }) {
         mySession,
         setMySession,
         visibleModal,
-        setVisibleModal
+        setVisibleModal,
+        date,
+        setDate
       }}
     >
       {children}

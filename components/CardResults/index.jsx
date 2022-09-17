@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../../context'
 
-function CardResults ({ team1, team2, date }) {
+function CardResults ({ team1, team2 }) {
+  const { date } = useContext(Context)
   const versus = `${team1} vs. ${team2}`
   return (
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 text-center border-2 w-full flex flex-col md:max-w-5xl'>

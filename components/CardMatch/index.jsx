@@ -9,7 +9,7 @@ function CardMatch ({ team1, team2, date }) {
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 border-2 w-full md:flex md:flex-row md:max-w-5xl'>
       <div className='flex flex-row justify-between items-center text-white py-3 px-5 md:flex-col md:justify-center md:gap-3'>
         <p>19:30</p>
-        <p className='text-primary'>22 apr</p>
+        <p className='text-primary'>{date}</p>
       </div>
       <div className='flex flex-row justify-between items-center gap-3 text-white py-3 px-5 md:flex-col md:justify-center'>
         <h3 className='font-bold md:hidden'>{versus}</h3>
