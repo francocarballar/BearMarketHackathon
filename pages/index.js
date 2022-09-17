@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.css'
 import { getSession, signOut } from 'next-auth/react'
-import { ContainerAddress } from '../components/ContainerAddress'
 import { CardMatch } from '../components/CardMatch'
+import { Portada } from '../components/Portada'
 import { useContext } from 'react'
 import { Context } from '../context'
 
@@ -11,7 +11,7 @@ export default function Home ({ user, session }) {
   setMySession(session)
   return (
     <main className={styles.main}>
-      <ContainerAddress />
+      <Portada />
       <section className='w-full flex flex-col justify-start items-center gap-8 md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3'>
         <CardMatch
           team1='Real Sociedad'
