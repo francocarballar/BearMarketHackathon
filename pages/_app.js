@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { NextUIProvider } from '@nextui-org/react'
+import { NextUIProvider, createTheme } from '@nextui-org/react'
 import {
   createClient,
   configureChains,
@@ -22,12 +22,24 @@ const client = createClient({
   autoConnect: true
 })
 
+const theme = createTheme({
+  type: 'dark', // it could be "light" or "dark"
+  theme: {
+    colors: {
+      // brand colors
+      primary: '#06C0B5'
+    },
+    space: {},
+    fonts: {}
+  }
+})
+
 function MyApp ({ Component, pageProps }) {
   return (
     <>
       <WagmiConfig client={client}>
         <SessionProvider session={pageProps.session} refetchInterval={0}>
-          <NextUIProvider>
+          <NextUIProvider theme={theme}>
             <Provider>
               <Header />
               <NavBar />

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../../context'
 
 function CardMatch ({ team1, team2, date }) {
+  const { setVisibleModal } = useContext(Context)
   const versus = `${team1} vs. ${team2}`
   return (
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 border-2 w-full md:flex md:flex-row md:max-w-5xl'>
@@ -35,7 +37,10 @@ function CardMatch ({ team1, team2, date }) {
           </div>
         </div>
         <div className='flex justify-center items-center w-full md:pt-10'>
-          <button className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-32 lg:w-40'>
+          <button
+            className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-32 lg:w-40'
+            onClick={() => setVisibleModal(true)}
+          >
             Make Bet
           </button>
         </div>
