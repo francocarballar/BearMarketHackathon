@@ -3,13 +3,36 @@ import { getSession, signOut } from 'next-auth/react'
 import { CardMatch } from '../components/CardMatch'
 import { Portada } from '../components/Portada'
 import { ModalComponent } from '../components/Modal'
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Context } from '../context'
+import { useContractRead, usePrepareContractWrite, useContractWrite } from 'wagmi'
+import { daiAbi, betContractAbi, daiContractAddress, superBetContractAddress, gameCreateRequestId, gameResolveRequestId } from "../constants"
+import moment from 'moment'
 
-export default function Home ({ user, session }) {
+
+export default function Home({ user, session }) {
   const { setAddress, setMySession } = useContext(Context)
   setAddress(user.address)
   setMySession(session)
+
+  const getGameCreate0 = useContractRead({
+    chain: 0x5,
+    addressOrName: '0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32',
+    contractInterface: betContractAbi,
+    functionName: 'getGameCreate',
+    args: ["0x7a29c3073173a85e601535e5c66e4a3012be719a61e4d146d1ec30241349efcb", "0"]
+})
+const [gameCreate0, setGameCreate0] = useState("");
+
+useEffect(() => {
+  // if (data != undefined) {
+      setGameCreate0(getGameCreate0.data)
+  // }
+}, [])
+
+  console.log("partido:", gameCreate0)
+  console.log("fecha:", moment.unix(gameCreate0[1]).format('LLLL') )
+
   return (
     <main className={`${styles.main} bg-gray-900`}>
       <Portada />
@@ -40,7 +63,7 @@ export default function Home ({ user, session }) {
   )
 }
 
-export async function getServerSideProps (context) {
+export async function getServerSideProps(context) {
   const session = await getSession(context)
 
   // redirect if not authenticated
