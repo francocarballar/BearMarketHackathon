@@ -48,6 +48,10 @@ html {
   color: var(--white);
 }
 
+.nextui-c-egxOLa {
+  max-width: none;
+}
+
 @media(min-width: 1024px) {
   .nextui-c-hhqfap {
     width: calc(100% - 64px);
