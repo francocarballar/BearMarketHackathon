@@ -1,7 +1,7 @@
 .main {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
 }
 
 .section_signin {
@@ -12,6 +12,7 @@
   .main {
     left: 64px;
     width: calc(100% - 64px);
+    min-height: calc(100vh - 76px);
   }
 
   .section_signin {

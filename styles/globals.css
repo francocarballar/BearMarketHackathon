@@ -28,6 +28,10 @@ html {
   height: 100vh;
 }
 
+.text-primary {
+  color: var(--primary-color);
+}
+
 .nextui-c-hhqfap-gqZKcP-disableBlur-false .nextui-c-egxOLa, .nextui-c-egxOLa {
   background: var(--black);
 }

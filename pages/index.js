@@ -10,7 +10,7 @@ export default function Home ({ user, session }) {
   setAddress(user.address)
   setMySession(session)
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} bg-gray-900`}>
       <Portada />
       <section className='w-full flex flex-col justify-start items-center gap-8 md:grid md:grid-cols-2 md:place-items-center lg:grid-cols-3'>
         <CardMatch
@@ -18,7 +18,7 @@ export default function Home ({ user, session }) {
           team2='Atletico de Madrid'
           date='Saturday, September 3, 2022'
         />
-        <CardMatch
+        {/* <CardMatch
           team1='Real Sociedad'
           team2='Atletico de Madrid'
           date='Saturday, September 3, 2022'
@@ -33,6 +33,11 @@ export default function Home ({ user, session }) {
           team2='Atletico de Madrid'
           date='Saturday, September 3, 2022'
         />
+        <CardMatch
+          team1='Real Sociedad'
+          team2='Atletico de Madrid'
+          date='Saturday, September 3, 2022'
+        /> */}
       </section>
     </main>
   )

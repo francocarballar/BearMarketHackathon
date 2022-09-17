@@ -8,9 +8,16 @@ function CardMatch ({ team1, team2, date }) {
   const versus = `${team1} vs. ${team2}`
   return (
     <article className='w-4/5 shadow-xl rounded-2xl max-w-sm md:w-11/12'>
-      <div className={styles.background}>
+      {/* <div className={styles.background}>
         <h3 className='text-2xl font-bold'>{versus}</h3>
         <h4>{date}</h4>
+      </div> */}
+      <div className='flex flex-row justify-between items-center text-white py-3 px-5'>
+        <p>19:30</p>
+        <p className='text-primary'>22 apr</p>
+      </div>
+      <div className='flex flex-row justify-between items-center text-white py-3 px-5'>
+        <h3 className='font-bold'>{versus}</h3>
       </div>
       <div className='flex flex-col justify-center items-start px-6 pt-8 w-full'>
         <Input
