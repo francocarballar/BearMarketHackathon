@@ -32,8 +32,8 @@ function ModalComponent () {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color='error' onClick={closeHandler}>
-            Close
+          <Button auto className='text-white' flat onClick={closeHandler}>
+            Approve
           </Button>
           <Button auto className='text-primary' onClick={closeHandler}>
             Make Bet

@@ -1,0 +1,9 @@
+.inputRadioBet {
+    display: none;
+}
+
+.inputRadioBet:checked+label {
+    color: var(--primary-color) !important;
+    background-color: var(--background-color) !important;
+    border: 4px solid var(--primary-color) !important;
+}

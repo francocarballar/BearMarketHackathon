@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Context } from '../../context'
+import styles from './CardMarch.module.css'
 
 function CardMatch ({ team1, team2, date }) {
   const { setVisibleModal } = useContext(Context)
@@ -19,21 +20,48 @@ function CardMatch ({ team1, team2, date }) {
         <div className='flex justify-center items-center gap-3'>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
             <p className='text-white'>Home</p>
-            <button className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold'>
+            <input
+              type='radio'
+              name='bet'
+              id='Home'
+              className={styles.inputRadioBet}
+            />
+            <label
+              className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold cursor-pointer'
+              htmlFor='Home'
+            >
               2,1
-            </button>
+            </label>
           </div>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
             <p className='text-white'>Away</p>
-            <button className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold'>
+            <input
+              type='radio'
+              name='bet'
+              id='Away'
+              className={styles.inputRadioBet}
+            />
+            <label
+              className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold cursor-pointer'
+              htmlFor='Away'
+            >
               3,6
-            </button>
+            </label>
           </div>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
             <p className='text-white'>Tie</p>
-            <button className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold'>
+            <input
+              type='radio'
+              name='bet'
+              id='Tie'
+              className={styles.inputRadioBet}
+            />
+            <label
+              className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold cursor-pointer'
+              htmlFor='Tie'
+            >
               3,6
-            </button>
+            </label>
           </div>
         </div>
         <div className='flex justify-center items-center w-full md:pt-10'>
