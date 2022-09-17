@@ -36,16 +36,31 @@ export default function Home ({ user, session }) {
     ]
   })
   const [gameCreate0, setGameCreate0] = useState('')
-  console.log(getGameCreate0)
+
+  const getGameResolve0 = useContractRead({
+    chain: 0x5,
+    addressOrName: '0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32',
+    contractInterface: betContractAbi,
+    functionName: 'getGameResolve',
+    args: [
+      '0x27055d93d1ea190ee64eb80706c466bfb96151db8fabb41e6f0418643feba1ef',
+      '0'
+    ]
+  })
+  const [gameResolve0, setGameResolve0] = useState('')
 
   useEffect(() => {
-    // if (data != undefined) {
-    setGameCreate0(getGameCreate0.data)
-    // }
+    if (getGameCreate0.data != undefined) {
+      setGameCreate0(getGameCreate0.data)
+    }
+    if (getGameResolve0.data != undefined) {
+      setGameResolve0(getGameResolve0.data)
+    }
   }, [])
 
   console.log('partido:', gameCreate0)
   console.log('fecha:', moment.unix(gameCreate0[1]).format('LLLL'))
+  console.log('resultado:', gameResolve0)
 
   return (
     <main className={styles.main}>
