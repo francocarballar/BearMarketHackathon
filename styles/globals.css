@@ -3,7 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --semitransparent: rgba(255, 255, 255, 0.6);
+  --black: #000;
+  --white: #fff;
+  --primary-color: #06C0B5;
+  --semitransparent: rgba(0, 0, 0, .8);
+  /* --nextui--linkColor: var(--white); */
+  /* --nextui-colors-background: var(--black); */
+  --nextui-colors-primary: var(--primary-color);
+  --nextui--navbarTextColor: var(--white);
+  --nextui-colors-secondaryLightContrast: var(--primary-color);
+  --nextui-colors-secondaryLight: #06c0b521;
 }
 
 * {
@@ -17,4 +26,30 @@ html {
 #__next {
   width: 100%;
   height: 100vh;
+}
+
+.nextui-c-hhqfap-gqZKcP-disableBlur-false .nextui-c-egxOLa, .nextui-c-egxOLa {
+  background: var(--black);
+}
+
+.nextui-c-gEEnVX-jzyGMN-color-secondary .nextui-avatar-bg, .nextui-c-iWjDFM-hkKLfu-cv {
+  background: var(--primary-color);
+}
+
+.nextui-c-iTPCAT-OSUxW-disableBlur-false {
+  background: var(--semitransparent);
+}
+
+.nextui-c-iTPCAT-OSUxW-disableBlur-false li {
+  color: var(--white);
+}
+
+@media(min-width: 1024px) {
+  .nextui-c-hhqfap {
+    width: calc(100% - 64px);
+  }
+  
+  .nextui-c-hhqfap-ehawcb-variant-sticky {
+    left: 64px;
+  }
 }

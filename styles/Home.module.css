@@ -1,1 +1,20 @@
+.main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
 
+.section_signin {
+  height: calc(100vh - 156px);
+}
+
+@media (min-width: 1024px) {
+  .main {
+    left: 64px;
+    width: calc(100% - 64px);
+  }
+
+  .section_signin {
+    height: calc(100vh - 76px);
+  }
+}

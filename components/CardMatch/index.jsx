@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import styles from './CardMatch.module.css'
 import { Radio } from '@nextui-org/react'
-import { Input, Grid } from '@nextui-org/react'
+import { Input } from '@nextui-org/react'
 
 function CardMatch ({ team1, team2, date }) {
   const [checked, setChecked] = useState('')
   const versus = `${team1} vs. ${team2}`
   return (
-    <article className='w-4/5 shadow-xl rounded-2xl max-w-sm'>
+    <article className='w-4/5 shadow-xl rounded-2xl max-w-sm md:w-11/12'>
       <div className={styles.background}>
         <h3 className='text-2xl font-bold'>{versus}</h3>
         <h4>{date}</h4>

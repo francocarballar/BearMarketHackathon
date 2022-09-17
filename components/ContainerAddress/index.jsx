@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { MdContentCopy } from 'react-icons/md'
 import { MdCheckCircleOutline } from 'react-icons/md'
+import { useContext } from 'react'
+import { Context } from '../../context'
 
 function ContainerAddress () {
   const [alertCopy, setAlertCopy] = useState(false)
-  const address = '0x8c5841De344396945D6D7E5BB953a0ce1DF08aA6'
-  const addressLength = Number(address.length)
+  const { myAddress } = useContext(Context)
+  const addressLength = Number(myAddress.length)
   const subAddress = addressLength - 4
-  const firstDigits = address.substring(0, 5)
-  const lastDigits = address.substring(subAddress, addressLength)
+  const firstDigits = myAddress.substring(0, 5)
+  const lastDigits = myAddress.substring(subAddress, addressLength)
   const copyAddress = () => {
     navigator.clipboard
-      .writeText(address)
+      .writeText(myAddress)
       .then(setAlertCopy(true))
       .then(
         setTimeout(() => {
@@ -21,9 +23,8 @@ function ContainerAddress () {
   }
   return (
     <div className='flex justify-center items-center flex-col text-center w-full p-6'>
-      <h3 className='text-lg font-bold'>Account</h3>
       <p
-        className='flex items-center cursor-pointer relative'
+        className='flex items-center cursor-pointer relative text-white font-bold'
         onClick={copyAddress}
       >
         {`${firstDigits}...${lastDigits}`}
@@ -32,7 +33,7 @@ function ContainerAddress () {
         </span>
         {alertCopy && (
           <div
-            className='flex justify-center items-center rounded-md h-6 w-32 absolute top-0'
+            className='flex justify-center items-center rounded-md h-6 w-full absolute top-0'
             style={{ backgroundColor: 'var(--semitransparent)' }}
           >
             <span className='text-green-500 textlg'>
