@@ -29,7 +29,20 @@ function Header () {
       setNotConnect(false)
     }
   }, [mySession])
-
+  const [stateWidth, setWindowWidth] = useState(0)
+  const [viewTablet, setViewTablet] = useState(false)
+  const updateDimensions = () => {
+    const width = window.innerWidth
+    setWindowWidth(width)
+    if (width <= 768) {
+      setViewTablet(false)
+    } else if (width >= 768) {
+      setViewTablet(true)
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions)
+  })
   return (
     <>
       <Navbar isBordered={isDark} variant='sticky'>
@@ -57,7 +70,7 @@ function Header () {
               }
             }}
           >
-            <ContainerAddress />
+            {viewTablet && <ContainerAddress />}
             <Dropdown placement='bottom-right'>
               <Navbar.Item>
                 <Dropdown.Trigger>
@@ -95,17 +108,19 @@ function Header () {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Grid>
-              <Button
-                bordered
-                color='primary'
-                auto
-                ghost
-                onClick={() => signOut({ redirect: '/signin' })}
-              >
-                Disconnect
-              </Button>
-            </Grid>
+            {viewTablet && (
+              <Grid>
+                <Button
+                  bordered
+                  color='primary'
+                  auto
+                  ghost
+                  onClick={() => signOut({ redirect: '/signin' })}
+                >
+                  Disconnect
+                </Button>
+              </Grid>
+            )}
           </Navbar.Content>
         )}
         {notConnect && (
