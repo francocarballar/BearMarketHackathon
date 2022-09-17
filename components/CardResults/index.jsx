@@ -16,10 +16,9 @@ import {
   gameResolveRequestId
 } from '../../constants'
 
-
 function CardResults ({ team1, team2 }) {
   const { date } = useContext(Context)
-  const versus = "Southampton vs Aston Villa"
+  const versus = 'Southampton vs Aston Villa'
 
   const claimRewards = usePrepareContractWrite({
     chainId: 0x5,
@@ -29,7 +28,6 @@ function CardResults ({ team1, team2 }) {
     args: ['3901002']
   })
   const _claimRewards = useContractWrite(claimRewards.config)
-
 
   return (
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 text-center border-2 w-full flex flex-col md:max-w-5xl'>
@@ -42,23 +40,12 @@ function CardResults ({ team1, team2 }) {
 
       <div className='px-6 py-6 pt-3 flex flex-col justify-center items-center gap-3 md:flex-row'>
         <div className='flex justify-center items-center w-full'>
-        {/* <Button
-            auto
-            className='text-primary'
-            onClick={() => {
-              _claimRewards.write()
-            }}
-          >
-            Claim Rewards
-          </Button> */}
           <button
             className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-48 lg:w-40'
-            onClick={() =>     _claimRewards.write()
-            }
+            onClick={() => _claimRewards.write()}
           >
             Claim
           </button>
-
         </div>
       </div>
     </article>
