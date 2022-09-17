@@ -1,48 +1,44 @@
 import React, { useState } from 'react'
-import styles from './CardMatch.module.css'
-import { Radio } from '@nextui-org/react'
-import { Input } from '@nextui-org/react'
 
 function CardMatch ({ team1, team2, date }) {
-  const [checked, setChecked] = useState('')
   const versus = `${team1} vs. ${team2}`
   return (
-    <article className='w-4/5 shadow-xl rounded-2xl max-w-sm md:w-11/12'>
-      {/* <div className={styles.background}>
-        <h3 className='text-2xl font-bold'>{versus}</h3>
-        <h4>{date}</h4>
-      </div> */}
-      <div className='flex flex-row justify-between items-center text-white py-3 px-5'>
+    <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 border-2 w-full md:flex md:flex-row md:max-w-5xl'>
+      <div className='flex flex-row justify-between items-center text-white py-3 px-5 md:flex-col md:justify-center md:gap-3'>
         <p>19:30</p>
         <p className='text-primary'>22 apr</p>
       </div>
-      <div className='flex flex-row justify-between items-center text-white py-3 px-5'>
-        <h3 className='font-bold'>{versus}</h3>
+      <div className='flex flex-row justify-between items-center gap-3 text-white py-3 px-5 md:flex-col md:justify-center'>
+        <h3 className='font-bold md:hidden'>{versus}</h3>
+        <h3 className='font-bold hidden md:block'>{team1}</h3>
+        <h3 className='font-bold hidden md:block'>{team2}</h3>
       </div>
-      <div className='flex flex-col justify-center items-start px-6 pt-8 w-full'>
-        <Input
-          underlined
-          labelPlaceholder='Apuesta'
-          color='secondary'
-          fullWidth
-        />
-      </div>
-      <div className='flex flex-col justify-center items-start px-6 pt-6'>
-        <Radio.Group color='secondary' value={checked} onChange={setChecked}>
-          <Radio value={team1}>{team1}</Radio>
-          <Radio value={team2}>{team2}</Radio>
-        </Radio.Group>
-      </div>
-      <div className='px-6 py-6 flex justify-center items-center gap-3'>
-        <button className='px-4 py-2 rounded-md w-40 text-green-500 font-bold border-green-500 border-2 hover:text-white hover:bg-green-500'>
-          Gana
-        </button>
-        <button className='px-4 py-2 rounded-md w-40 text-gray-700 font-bold border-gray-700 border-2 hover:text-white hover:bg-gray-700'>
-          Empata
-        </button>
-        <button className='px-4 py-2 rounded-md w-40 text-red-500 font-bold border-red-500 border-2 hover:text-white hover:bg-red-500'>
-          Pierde
-        </button>
+      <div className='px-6 py-6 pt-3 flex flex-col justify-center items-center gap-3 md:flex-row'>
+        <div className='flex justify-center items-center gap-3'>
+          <div className='flex flex-col gap-3 justify-center items-center text-center'>
+            <p className='text-white'>Home</p>
+            <button className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold'>
+              2,1
+            </button>
+          </div>
+          <div className='flex flex-col gap-3 justify-center items-center text-center'>
+            <p className='text-white'>Away</p>
+            <button className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold'>
+              3,6
+            </button>
+          </div>
+          <div className='flex flex-col gap-3 justify-center items-center text-center'>
+            <p className='text-white'>Tie</p>
+            <button className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold'>
+              3,6
+            </button>
+          </div>
+        </div>
+        <div className='flex justify-center items-center w-full md:pt-10'>
+          <button className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-32 lg:w-40'>
+            Make Bet
+          </button>
+        </div>
       </div>
     </article>
   )

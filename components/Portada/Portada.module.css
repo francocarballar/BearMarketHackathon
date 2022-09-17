@@ -1,3 +1,9 @@
 .portada {
     background-image: url(/img/Portada.png)
 }
+
+@media(min-width: 1024px) {
+    .container {
+        width: 1024px;
+    }
+}

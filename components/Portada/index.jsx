@@ -4,9 +4,11 @@ import styles from './Portada.module.css'
 function Portada () {
   return (
     <section
-      className={`${styles.portada} flex justify-center items-center w-full h-64 bg-no-repeat bg-center`}
+      className={`${styles.portada} flex justify-center items-center w-full h-64 bg-no-repeat bg-center p-7`}
     >
-      <div className='flex flex-col justify-center items-center gap-6 text-center text-white md:items-start'>
+      <div
+        className={`${styles.container} flex flex-col justify-center items-center gap-6 w-full text-center text-white md:items-start`}
+      >
         <h1 className='text-3xl font-bold md:text-5xl'>
           Manchester vs Real Madrid
         </h1>
