@@ -22,8 +22,12 @@ import moment from 'moment'
 
 export default function Home ({ user, session }) {
   const { setAddress, setMySession, date, setDate } = useContext(Context)
-  setAddress(user.address)
-  setMySession(session)
+  useEffect(() => {
+    setAddress(user.address)
+  }, [setAddress, user])
+  useEffect(() => {
+    setMySession(session)
+  }, [setMySession, session])
   const getGameCreate0 = useContractRead({
     chain: 0x5,
     addressOrName: '0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32',
@@ -47,16 +51,16 @@ export default function Home ({ user, session }) {
   })
   const [gameResolve0, setGameResolve0] = useState('')
   useEffect(() => {
-    if (getGameCreate0.data != undefined) {
+    if (getGameCreate0.data !== undefined) {
       setGameCreate0(getGameCreate0.data)
     }
-    if (getGameResolve0.data != undefined) {
+    if (getGameResolve0.data !== undefined) {
       setGameResolve0(getGameResolve0.data)
     }
-  }, [])
+  }, [setGameResolve0, setGameCreate0, getGameCreate0, getGameResolve0])
   useEffect(() => {
     setDate(moment.unix(gameCreate0[1]).format('DD MMMM'))
-  }, [gameResolve0])
+  }, [setDate, gameCreate0])
 
   return (
     <main className={styles.main}>
