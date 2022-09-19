@@ -1,16 +1,6 @@
-const {
-  DAI_CONTRACT_ADDRESS,
-  BET_CONTRACT_ADDRESS,
-  GAME_CREATE_REQUEST_ID,
-  GAME_RESOLVE_REQUEST_ID,
-  DAI_ABI,
-  BET_CONTRACT_ABI,
-  CHAIN_ID,
-  FUNCTIONS,
-  MAGIC,
-} = require("../constants");
+import { CHAIN_ID } from "../constants";
 
-const model = require("./model/model");
+import model from "./model/model";
 
 class Setup {
   constructor() {
@@ -51,4 +41,4 @@ class Setup {
 }
 
 let setup = (new Setup().setModel = model());
-module.exports = setup;
+export default setup;

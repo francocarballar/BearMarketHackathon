@@ -1,3 +1,5 @@
+import { FUNCTIONS, GAME_CREATE_REQUEST_ID, GAME_RESOLVE_REQUEST_ID, MAGIC } from "../constants";
+
 let loadFeatures = (name, args) => {
   setup.functionName = name;
   setup.args = args;
@@ -19,4 +21,4 @@ const API = {
   },
 };
 
-module.exports = API;
+export default API;

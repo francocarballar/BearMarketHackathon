@@ -1,3 +1,5 @@
+import { CHAIN_ID, BET_CONTRACT_ADDRESS, BET_CONTRACT_ABI } from "../constants";
+
 
 let model = () => {
     let setup = {}
@@ -10,4 +12,4 @@ let model = () => {
     return setup;
 }
 
-module.exports = model
+export default model
