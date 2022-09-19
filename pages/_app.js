@@ -7,20 +7,48 @@ import {
   WagmiConfig
 } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { SessionProvider } from 'next-auth/react'
 import { Provider } from '../context'
 import { Header } from '../components/Header'
 import { NavBar } from '../components/NavBar'
 import Head from 'next/head'
 
-const { provider, webSocketProvider } = configureChains(defaultChains, [
+const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
+  alchemyProvider({ apiKey: 'z84TH7GWRfljYHkhTe6JzKryS3KImf-T' }),
   publicProvider()
 ])
 
 const client = createClient({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: 'wagmi'
+      }
+    }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: true
+      }
+    }),
+    new InjectedConnector({
+      chains,
+      options: {
+        name: 'Injected',
+        shimDisconnect: true
+      }
+    })
+  ],
   provider,
-  webSocketProvider,
-  autoConnect: true
+  webSocketProvider
 })
 
 const theme = createTheme({
