@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Context } from '../context'
 import { useConnect } from 'wagmi'
 import styles from '../styles/Home.module.css'
@@ -7,7 +7,9 @@ import { ButtonLogin } from '../components/ButtonLogin'
 
 function SignIn ({ session }) {
   const { setMySession } = useContext(Context)
-  setMySession(session)
+  useEffect(() => {
+    setMySession(session)
+  }, [setMySession, session])
   const { connectors } = useConnect()
   return (
     <main className={styles.main}>

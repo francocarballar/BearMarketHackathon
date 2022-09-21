@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
   Navbar,
-  Link,
   Text,
   Avatar,
   Dropdown,
@@ -11,12 +10,14 @@ import {
 } from '@nextui-org/react'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ContainerAddress } from '../ContainerAddress'
 import { Context } from '../../context'
 
 function Header () {
   const { mySession } = useContext(Context)
   const { isDark } = useTheme()
+  const { event, ...Trigger } = Dropdown.Trigger
   const collapseItems = ['Profile', 'Activity', 'My Settings', 'Log Out']
   const [connect, setConnect] = useState(false)
   const [notConnect, setNotConnect] = useState(false)
