@@ -1,14 +1,9 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true
+}
+
 module.exports = {
-  trailingSlash: true,
-  images: {
-    unoptimized: true
-  },
-  exportPathMap: function () {
-    return {
-      '/': { page: '/' },
-      '/signin': { page: '/signin' },
-      '/user': { page: '/user' },
-      '/results': { page: '/results' }
-    }
-  }
+  nextConfig
 }
