@@ -10,7 +10,12 @@ const nextConfig = {
     defaultPathMap,
     { dev, dir, outDir, distDir, buildId }
   ) {
-    return { '/': { page: '/' } }
+    return {
+      '/': { page: '/index' },
+      '/results': { page: '/results' },
+      '/signin': { page: '/signin' },
+      '/user': { page: '/user' }
+    }
   }
 }
 
