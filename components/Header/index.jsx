@@ -15,9 +15,8 @@ import { ContainerAddress } from '../ContainerAddress'
 import { Context } from '../../context'
 
 function Header () {
-  const { mySession } = useContext(Context)
+  const { mySession, viewTablet } = useContext(Context)
   const { isDark } = useTheme()
-  const { event, ...Trigger } = Dropdown.Trigger
   const collapseItems = ['Profile', 'Activity', 'My Settings', 'Log Out']
   const [connect, setConnect] = useState(false)
   const [notConnect, setNotConnect] = useState(false)
@@ -30,25 +29,6 @@ function Header () {
       setNotConnect(false)
     }
   }, [mySession])
-  const [stateWidth, setWindowWidth] = useState(0)
-  const [viewTablet, setViewTablet] = useState(false)
-  const updateDimensions = () => {
-    const width = window.innerWidth
-    setWindowWidth(width)
-    if (width <= 768) {
-      setViewTablet(false)
-    } else if (width >= 768) {
-      setViewTablet(true)
-    }
-  }
-  let width
-  useEffect(() => {
-    width = window.innerWidth
-    if (width >= 768) {
-      setViewTablet(true)
-    }
-    window.addEventListener('resize', updateDimensions)
-  }, [stateWidth])
   return (
     <>
       <Navbar isBordered={isDark} variant='sticky'>
