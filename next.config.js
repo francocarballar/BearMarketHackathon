@@ -5,7 +5,10 @@ module.exports = {
   },
   exportPathMap: function () {
     return {
-      '/': { page: '/' }
+      '/': { page: '/' },
+      '/signin': { page: '/signin' },
+      '/user': { page: '/user' },
+      '/results': { page: '/results' }
     }
   }
 }
