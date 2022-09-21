@@ -72,7 +72,11 @@ function Header () {
               <Dropdown.Menu
                 aria-label='User menu actions'
                 color='secondary'
-                onAction={actionKey => console.log({ actionKey })}
+                onAction={actionKey => {
+                  if (actionKey === 'logout') {
+                    signOut({ redirect: '/signin' })
+                  }
+                }}
               >
                 <Dropdown.Item key='profile' css={{ height: '$18' }}>
                   <Text b color='inherit' css={{ d: 'flex' }}>
@@ -90,9 +94,7 @@ function Header () {
                   Help & Feedback
                 </Dropdown.Item>
                 <Dropdown.Item key='logout' withDivider color='error'>
-                  <a onClick={() => signOut({ redirect: '/signin' })}>
-                    Log Out
-                  </a>
+                  Log Out
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
