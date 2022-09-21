@@ -6,10 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
+  exportPathMap: function () {
     return {
       '/': { page: '/index' },
       '/results': { page: '/results' },
