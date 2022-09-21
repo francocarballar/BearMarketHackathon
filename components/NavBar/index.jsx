@@ -39,25 +39,34 @@ function NavBar () {
     setStyleResults({})
     setStyleHistory({})
   }
+  const [viewMenu, setViewMenu] = useState(false)
+  const clickMenu = () => {
+    const body = document.body
+    body.classList.toggle('width-menu')
+    setViewMenu(!viewMenu)
+  }
   return (
     <nav className={`${styles.navBar} bg-black text-white`}>
       <ul>
-        <li className={styles.menu} title='Menu'>
+        <li className={styles.menu} title='Menu' onClick={clickMenu}>
           <MdMenu />
         </li>
         <Link href='/'>
           <li title='Bet' onClick={clickHome} style={styleHome}>
             <BsFillDice5Fill />
+            {viewMenu && <p>Bets</p>}
           </li>
         </Link>
         <Link href='/results'>
           <li title='Results' onClick={clickResults} style={styleResults}>
             <BsFillPatchCheckFill />
+            {viewMenu && <p>Results</p>}
           </li>
         </Link>
         <Link href='/history'>
           <li title='History' onClick={clickHistory} style={styleHistory}>
             <FaHistory />
+            {viewMenu && <p>History</p>}
           </li>
         </Link>
         <li
@@ -67,6 +76,7 @@ function NavBar () {
           style={styleSettings}
         >
           <MdSettings />
+          {viewMenu && <p>Settings</p>}
         </li>
       </ul>
     </nav>

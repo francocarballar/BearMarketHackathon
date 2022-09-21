@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --width-menu: 64px;
   --black: #000;
   --white: #fff;
   --primary-color: #06C0B5;
@@ -22,6 +23,10 @@
 
 html {
   font-family: 'Roboto', sans-serif;
+}
+
+body.width-menu {
+  --width-menu: 150px;
 }
 
 #__next {
@@ -59,10 +64,10 @@ html {
 
 @media(min-width: 1024px) {
   .nextui-c-hhqfap {
-    width: calc(100% - 64px);
+    width: calc(100% - var(--width-menu));
   }
   
   .nextui-c-hhqfap-ehawcb-variant-sticky {
-    left: 64px;
+    left: var(--width-menu);
   }
 }

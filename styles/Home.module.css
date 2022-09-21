@@ -11,8 +11,8 @@
 
 @media (min-width: 1024px) {
   .main {
-    left: 64px;
-    width: calc(100% - 64px);
+    left: var(--width-menu);
+    width: calc(100% - var(--width-menu));
     min-height: calc(100vh - 76px);
   }
 
