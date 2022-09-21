@@ -1,10 +1,32 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Context } from '../../context'
-import styles from './CardMarch.module.css'
 
 function CardMatch ({ team1, team2, date }) {
   const { setVisibleModal } = useContext(Context)
   const versus = `${team1} vs. ${team2}`
+  const styleButtonBet = {
+    color: 'var(--primary-color)',
+    backgroundColor: 'var(--background-color)',
+    border: '4px solid var(--primary-color)'
+  }
+  const [styleHome, setStyleHome] = useState({})
+  const [styleAway, setStyleAway] = useState({})
+  const [styleTie, setStyleTie] = useState({})
+  const clickHome = () => {
+    setStyleHome(styleButtonBet)
+    setStyleAway({})
+    setStyleTie({})
+  }
+  const clickAway = () => {
+    setStyleHome({})
+    setStyleAway(styleButtonBet)
+    setStyleTie({})
+  }
+  const clickTie = () => {
+    setStyleHome({})
+    setStyleAway({})
+    setStyleTie(styleButtonBet)
+  }
   return (
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 border-2 w-full md:flex md:flex-row md:max-w-5xl'>
       <div className='flex flex-row justify-between items-center text-white py-3 px-5 md:flex-col md:justify-center md:gap-3'>
@@ -20,48 +42,33 @@ function CardMatch ({ team1, team2, date }) {
         <div className='flex justify-center items-center gap-3'>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
             <p className='text-white'>Home</p>
-            <input
-              type='radio'
-              name='bet'
-              id='Home'
-              className={styles.inputRadioBet}
-            />
-            <label
+            <button
               className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold cursor-pointer'
-              htmlFor='Home'
+              style={styleHome}
+              onClick={clickHome}
             >
               2,1
-            </label>
+            </button>
           </div>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
             <p className='text-white'>Away</p>
-            <input
-              type='radio'
-              name='bet'
-              id='Away'
-              className={styles.inputRadioBet}
-            />
-            <label
+            <button
               className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold cursor-pointer'
-              htmlFor='Away'
+              style={styleAway}
+              onClick={clickAway}
             >
               3,6
-            </label>
+            </button>
           </div>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
             <p className='text-white'>Tie</p>
-            <input
-              type='radio'
-              name='bet'
-              id='Tie'
-              className={styles.inputRadioBet}
-            />
-            <label
+            <button
               className='px-4 py-2 rounded-md w-20 md:w-30 lg:w-40 text-white bg-gray-600 font-bold cursor-pointer'
-              htmlFor='Tie'
+              style={styleTie}
+              onClick={clickTie}
             >
               3,6
-            </label>
+            </button>
           </div>
         </div>
         <div className='flex justify-center items-center w-full md:pt-10'>
