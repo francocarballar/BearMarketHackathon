@@ -1,4 +1,5 @@
-import { CHAIN_ID, BET_CONTRACT_ADDRESS, BET_CONTRACT_ABI } from "../constants";
+//import { CHAIN_ID, BET_CONTRACT_ADDRESS, BET_CONTRACT_ABI } from "../../constants";
+let { CHAIN_ID, BET_CONTRACT_ADDRESS, BET_CONTRACT_ABI } = require("../../constants");
 
 
 let model = () => {
@@ -12,4 +13,5 @@ let model = () => {
     return setup;
 }
 
-export default model
+//export default model
+module.exports = model

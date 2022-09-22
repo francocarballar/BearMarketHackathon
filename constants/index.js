@@ -1,15 +1,33 @@
-const daiContractAddress = "0x29282139fD1A88ccAED6d3bb7f547192144C0f95"
-const superBetContractAddress = "0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32"
-const gameCreateRequestId = "0x7a29c3073173a85e601535e5c66e4a3012be719a61e4d146d1ec30241349efcbc"
-const gameResolveRequestId = "0x27055d93d1ea190ee64eb80706c466bfb96151db8fabb41e6f0418643feba1ef"
-const daiAbi = require("./daiAbi.json")
-const betContractAbi = require("./betContractAbi.json")
+const DAI_CONTRACT_ADDRESS = "0x29282139fD1A88ccAED6d3bb7f547192144C0f95"
+const BET_CONTRACT_ADDRESS = "0x0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32"
+const GAME_CREATE_REQUEST_ID = "0x7a29c3073173a85e601535e5c66e4a3012be719a61e4d146d1ec30241349efcb"
+const GAME_RESOLVE_REQUEST_ID = "0x27055d93d1ea190ee64eb80706c466bfb96151db8fabb41e6f0418643feba1ef"
+const DAI_ABI = require("./daiAbi.json")
+const BET_CONTRACT_ABI = require("./betContractAbi.json")
 
+const CHAIN_ID = 0x5
+
+const FUNCTIONS = {
+    GAME_CREATE: "getGameCreate",
+    GAME_RESOLVE: "getGameResolve",
+    APPROVE: "approve",
+    SET_BET: "setBet",
+}
+
+const MAGIC = {
+    GAME_CREATE: 0,
+    GAME_RESOLVE: 1,
+    APPROVE: 1e20,
+}
+    
 module.exports = {
-    daiAbi,
-    daiContractAddress,
-    betContractAbi,
-    superBetContractAddress,
-    gameCreateRequestId,
-    gameResolveRequestId
+    DAI_CONTRACT_ADDRESS,
+    BET_CONTRACT_ADDRESS,
+    GAME_CREATE_REQUEST_ID,
+    GAME_RESOLVE_REQUEST_ID,
+    DAI_ABI,
+    BET_CONTRACT_ABI,
+    CHAIN_ID,
+    FUNCTIONS,
+    MAGIC
 }

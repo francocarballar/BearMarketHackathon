@@ -1,6 +1,14 @@
-import { CHAIN_ID } from "../constants";
+// import { CHAIN_ID } from "../constants";
 
-import model from "./model/model";
+// import model from "./model/model";
+
+
+let CHAIN_ID = require("../constants")
+let model = require("./model/model");
+
+//refactor , make a mapper class with an static method, with the corresponding jSON
+// and returns an instance
+
 
 class Setup {
   constructor() {
@@ -11,7 +19,7 @@ class Setup {
     this.args = [];
   }
 
-  static set setModel(model) {
+  set setModel(model) {
     this.chain = model.chain;
     this.addressOrName = model.addressOrName;
     this.contractInterface = model.contractInterface;
@@ -40,5 +48,13 @@ class Setup {
   }
 }
 
-let setup = (new Setup().setModel = model());
+let setup = new Setup()
+setup.setModel = model()
+
+console.log("LLEGCs", setup)
+
+// let sett = setup;
+// sett.functionName = "getGameCreate";
+// sett.args = [GAME_CREATE_REQUEST_ID, 0];
+
 export default setup;
