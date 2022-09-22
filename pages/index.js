@@ -24,7 +24,6 @@ import Moralis from "moralis-v1"
 
 const _gameCreateRequesIdsArray = []
 
-
 //CONSULTA A LA BASE DE DATOS:
 async function getRequestIds() {
   await Moralis_v2.start({ apiKey: "O3i5jPl78uSeh61yMkj2W4iaTXgZtch2cmiCngwcwTJPbfmgcqnmSiGZvtgOwel7" });
@@ -70,11 +69,12 @@ async function getRequestIds() {
         try {
           const gameCreate = await Moralis_v2.EvmApi.utils.runContractFunction(getGameCreateOptions)
           const _gameCreate = gameCreate.data;
-          // console.log("_gameCreate", _gameCreate)
-          if(_gameCreateRequesIdsArray.includes(_gameCreate)) {
-          } else {
-            _gameCreateRequesIdsArray.push(_gameCreate)
-          } 
+          // // console.log("_gameCreate", _gameCreate)
+
+          // arr => strig , str -> arr
+          if(!_gameCreateRequesIdsArray.includes(JSON.stringify(_gameCreate))){
+            _gameCreateRequesIdsArray.push(JSON.stringify(_gameCreate)) 
+          }
         } catch (e) {
           console.log("no es un game create")
         }
@@ -99,7 +99,6 @@ export default function Home({ user, session }) {
   const [gameCreateRequesIdsArray, setgameCreateRequesIdsArray] = useState('')
   async function setRequestIds() {
     const _getRequestIds = await getRequestIds()
-    console.log("ESTOY EN EL USE EFFECT")
     setRequestIds()
     setgameCreateRequesIdsArray(_getRequestIds)
   }
