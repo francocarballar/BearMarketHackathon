@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../context'
 
-function CardMatch ({ team1, team2, date }) {
+function CardMatch ({ team1, team2, date, time }) {
   const { setVisibleModal } = useContext(Context)
   const versus = `${team1} vs. ${team2}`
   const styleButtonBet = {
@@ -30,10 +30,10 @@ function CardMatch ({ team1, team2, date }) {
   return (
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 border-2 w-full md:flex md:flex-row md:max-w-5xl'>
       <div className='flex flex-row justify-between items-center text-white py-3 px-5 md:flex-col md:justify-center md:gap-3'>
-        <p>19:30</p>
+        <p>{time}</p>
         <p className='text-primary'>{date}</p>
       </div>
-      <div className='flex flex-row justify-between items-center gap-3 text-white py-3 px-5 md:flex-col md:justify-center'>
+      <div className='flex flex-row justify-between items-center gap-3 text-center text-white py-3 px-5 md:flex-col md:justify-center md:w-40'>
         <h3 className='font-bold md:hidden'>{versus}</h3>
         <h3 className='font-bold hidden md:block'>{team1}</h3>
         <h3 className='font-bold hidden md:block'>{team2}</h3>
