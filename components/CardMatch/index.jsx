@@ -76,7 +76,7 @@ function CardMatch ({ team1, team2, date, time }) {
             className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-32 lg:w-40'
             onClick={() => setVisibleModal(true)}
           >
-            Make Bet
+            Place Bet
           </button>
         </div>
       </div>
