@@ -18,7 +18,7 @@ export default function Home ({ user, session }) {
   }
   useEffect(() => {
     setRequestIds()
-  }, [])
+  }, [matches[0]])
   useEffect(() => {
     setAddress(user.address)
   }, [setAddress, user])
@@ -36,14 +36,18 @@ export default function Home ({ user, session }) {
             <Loading type='points' size='lg' />
           </Grid>
         ) : (
-          matches.map(match => (
+          matches.map(match => ( 
             <CardMatch
-              team1={match[2]}
-              team2={match[3]}
-              date={moment.unix(match[1]).format('DD MMMM')}
-              time={moment.unix(match[1]).format('LT')}
-              key={match[0]}
-            />
+              team1={match.homeTeam}
+              team2={match.awayTeam}
+              homeOdd={match.homeOdd}
+              awayOdd={match.awayOdd}
+              tiedOdd={match.tiedOdd}
+              gameId={match.gameId}
+              date={moment.unix(match.date).format('DD MMMM')}
+              time={moment.unix(match.date).format('LT')}
+              key={match.gameId}
+            /> 
           ))
         )}
       </section>

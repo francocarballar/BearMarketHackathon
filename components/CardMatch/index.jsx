@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import React, { useContext, useState } from 'react'
 import { Context } from '../../context'
+import { ethers } from 'ethers'
 
-function CardMatch ({ team1, team2, date, time }) {
+
+
+function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameId }) {
   const { setVisibleModal } = useContext(Context)
   const versus = `${team1} vs. ${team2}`
   const styleButtonBet = {
@@ -259,35 +262,36 @@ function CardMatch ({ team1, team2, date, time }) {
       <div className='px-6 py-6 pt-3 flex flex-col justify-center items-center gap-3 md:flex-row'>
         <div className='flex justify-center items-center gap-3'>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
-            <p className='text-white'>Home</p>
+            <p className='text-white'>1</p>
             <button
               className='px-4 py-2 rounded-md w-20 md:w-30 text-white bg-gray-600 font-bold cursor-pointer'
               style={styleHome}
               onClick={clickHome}
             >
-              2,1
+             {ethers.utils.formatEther(homeOdd)} 
             </button>
           </div>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
-            <p className='text-white'>Away</p>
-            <button
-              className='px-4 py-2 rounded-md w-20 md:w-30 text-white bg-gray-600 font-bold cursor-pointer'
-              style={styleAway}
-              onClick={clickAway}
-            >
-              3,6
-            </button>
-          </div>
-          <div className='flex flex-col gap-3 justify-center items-center text-center'>
-            <p className='text-white'>Tie</p>
+            <p className='text-white'>X</p>
             <button
               className='px-4 py-2 rounded-md w-20 md:w-30 text-white bg-gray-600 font-bold cursor-pointer'
               style={styleTie}
               onClick={clickTie}
             >
-              3,6
+              {ethers.utils.formatEther(tiedOdd)}
             </button>
           </div>
+          <div className='flex flex-col gap-3 justify-center items-center text-center'>
+            <p className='text-white'>2</p>
+            <button
+              className='px-4 py-2 rounded-md w-20 md:w-30 text-white bg-gray-600 font-bold cursor-pointer'
+              style={styleAway}
+              onClick={clickAway}
+            >
+              {ethers.utils.formatEther(awayOdd)}
+            </button>
+          </div>
+         
         </div>
         <div className='flex justify-center items-center w-full md:pt-10'>
           <button

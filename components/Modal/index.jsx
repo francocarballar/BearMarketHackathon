@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Modal, Input, Button, Text } from '@nextui-org/react'
 import { Context } from '../../context'
+
 import {
   useContractRead,
   usePrepareContractWrite,
@@ -16,27 +17,30 @@ import {
 } from '../../constants'
 
 function ModalComponent () {
+  
+  const [inputValue, setInputValue] = useState("")
+
   const { visibleModal, setVisibleModal } = useContext(Context)
   const closeHandler = () => {
     setVisibleModal(false)
   }
   const approve = usePrepareContractWrite({
     chainId: 0x5,
-    addressOrName: '0x29282139fD1A88ccAED6d3bb7f547192144C0f95',
+    addressOrName: daiContractAddress,
     contractInterface: daiAbi,
     functionName: 'approve',
     args: [
-      '0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32',
-      '100000000000000000000'
+      superBetContractAddress,
+      inputValue
     ]
   })
   const _approve = useContractWrite(approve.config)
   const setBet = usePrepareContractWrite({
     chainId: 0x5,
-    addressOrName: '0xB4a090fe9c54A7Ee9908Bfd5903b0a4f54689e32',
+    addressOrName: superBetContractAddress,
     contractInterface: betContractAbi,
     functionName: 'setBet',
-    args: ['3901002', '100000000000000000000', '0']
+    args: ['3901002', inputValue, '0']
   })
   const _setBet = useContractWrite(setBet.config)
   return (
@@ -61,6 +65,12 @@ function ModalComponent () {
             color='primary'
             size='lg'
             placeholder='5000'
+            onChange={ (e) => {
+              e.preventDefault()
+              setInputValue(e.target.value)
+            }
+          }
+          value={inputValue}
           />
         </Modal.Body>
         <Modal.Footer>
@@ -80,6 +90,7 @@ function ModalComponent () {
             onClick={() => {
               setVisibleModal(false)
               _setBet.write()
+              
             }}
           >
             Make Bet
