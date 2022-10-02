@@ -15,8 +15,14 @@ import {
   gameCreateRequestId,
   gameResolveRequestId
 } from '../../constants'
+import { useSelector } from 'react-redux'
 
 function ModalComponent () {
+
+  const userChoice = useSelector((state) => state.bet.value)
+  // console.log(userChoice)
+  const choiceSelected = userChoice[1]
+  const gameIdSelected = userChoice[0]
   
   const [inputValue, setInputValue] = useState("")
 
@@ -40,7 +46,8 @@ function ModalComponent () {
     addressOrName: superBetContractAddress,
     contractInterface: betContractAbi,
     functionName: 'setBet',
-    args: ['3901002', inputValue, '0']
+    args: [gameIdSelected, inputValue, choiceSelected]
+    
   })
   const _setBet = useContractWrite(setBet.config)
   return (

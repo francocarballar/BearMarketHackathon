@@ -7,6 +7,8 @@ import { Context } from '../../context'
 function ContainerAddress () {
   const [alertCopy, setAlertCopy] = useState(false)
   const { myAddress } = useContext(Context)
+  console.log("header user address", myAddress)
+
   const addressLength = Number(myAddress.length)
   const subAddress = addressLength - 4
   const firstDigits = myAddress.substring(0, 5)

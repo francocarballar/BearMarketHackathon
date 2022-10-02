@@ -13,10 +13,13 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { SessionProvider } from 'next-auth/react'
-import { Provider } from '../context'
+import { Provider }  from '../context'
 import { Header } from '../components/Header'
 import { NavBar } from '../components/NavBar'
 import Head from 'next/head'
+import { store } from './store'
+import { Provider as ProviderReduxStore} from 'react-redux'
+
 
 const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
   alchemyProvider({ apiKey: 'z84TH7GWRfljYHkhTe6JzKryS3KImf-T' }),
@@ -66,10 +69,13 @@ const theme = createTheme({
 function MyApp ({ Component, pageProps }) {
   return (
     <>
+      <Provider>              
+
+      <ProviderReduxStore store={store}>              
+
       <WagmiConfig client={client}>
         <SessionProvider session={pageProps.session} refetchInterval={0}>
           <NextUIProvider theme={theme}>
-            <Provider>
               <Head>
                 <link
                   rel='icon'
@@ -88,10 +94,13 @@ function MyApp ({ Component, pageProps }) {
               <Header />
               <NavBar />
               <Component {...pageProps} />
-            </Provider>
           </NextUIProvider>
         </SessionProvider>
       </WagmiConfig>
+      </ProviderReduxStore>
+      </Provider>
+
+
     </>
   )
 }

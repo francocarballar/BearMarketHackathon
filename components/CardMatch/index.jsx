@@ -3,9 +3,13 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../context'
 import { ethers } from 'ethers'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserChoice } from '../../pages/slices/betSlice'
 
 
 function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameId }) {
+  const dispatch = useDispatch()
+
   const { setVisibleModal } = useContext(Context)
   const versus = `${team1} vs. ${team2}`
   const styleButtonBet = {
@@ -20,16 +24,19 @@ function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameI
     setStyleHome(styleButtonBet)
     setStyleAway({})
     setStyleTie({})
+    dispatch(setUserChoice([gameId,"0"]))
   }
   const clickAway = () => {
     setStyleHome({})
     setStyleAway(styleButtonBet)
     setStyleTie({})
+    dispatch(setUserChoice([gameId,"1"]))
   }
   const clickTie = () => {
     setStyleHome({})
     setStyleAway({})
     setStyleTie(styleButtonBet)
+    dispatch(setUserChoice([gameId,"2"]))
   }
   const [ieemageSrc1, setImageSrc1] = useState('')
   var imageSrc1
@@ -241,23 +248,23 @@ function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameI
         <p className='text-primary'>{date}</p>
       </div>
       <div className='flex flex-row justify-between items-center gap-3 text-center text-white py-3 px-5 md:justify-center md:w-80'>
-        <Image
+        {/* <Image
           src={imageSrc1}
           alt={team1}
           width={50}
           height={50}
           layout='fixed'
           objectFit='contain'
-        />
+        /> */}
         <h3 className='font-bold md:w-40'>{versus}</h3>
-        <Image
+        {/* <Image
           src={imageSrc2}
           alt={team2}
           width={50}
           height={50}
           layout='fixed'
           objectFit='contain'
-        />
+        /> */}
       </div>
       <div className='px-6 py-6 pt-3 flex flex-col justify-center items-center gap-3 md:flex-row'>
         <div className='flex justify-center items-center gap-3'>

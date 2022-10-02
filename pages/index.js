@@ -9,19 +9,32 @@ import { Context } from '../context'
 import moment from 'moment'
 import getMatches from '../helpers/getMatches'
 
+import { useSelector, useDispatch } from 'react-redux'
+// import { decrement, increment } from './slices/counterSlice'
+
 export default function Home ({ user, session }) {
+  const count = useSelector((state) => state.counter.value)
+  const bet = useSelector((state) => state.bet.value)
+
+  const dispatch = useDispatch()
+
   const { setAddress, setMySession } = useContext(Context)
   const [matches, setMatches] = useState([])
-  async function setRequestIds () {
+  
+  async function getAllMatches () {
+    console.log("inside getAllMatches")
     const allMatches = await getMatches()
     setMatches(allMatches)
   }
+
   useEffect(() => {
-    setRequestIds()
-  }, [matches[0]])
+    getAllMatches()
+  },[matches[0]])
+
   useEffect(() => {
     setAddress(user.address)
   }, [setAddress, user])
+  
   useEffect(() => {
     setMySession(session)
   }, [setMySession, session])
@@ -37,6 +50,7 @@ export default function Home ({ user, session }) {
           </Grid>
         ) : (
           matches.map(match => ( 
+            
             <CardMatch
               team1={match.homeTeam}
               team2={match.awayTeam}
@@ -50,6 +64,9 @@ export default function Home ({ user, session }) {
             /> 
           ))
         )}
+
+
+
       </section>
     </main>
   )
