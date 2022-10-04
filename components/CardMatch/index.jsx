@@ -7,8 +7,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUserChoice } from '../../pages/slices/betSlice'
 
 
+
+
 function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameId }) {
   const dispatch = useDispatch()
+
 
   const { setVisibleModal } = useContext(Context)
   const versus = `${team1} vs. ${team2}`

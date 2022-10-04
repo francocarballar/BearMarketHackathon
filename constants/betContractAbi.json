@@ -1,804 +1,820 @@
 [
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_tokenAddress",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "FailedTransferLINK",
-    "type": "error"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "bytes32",
-        "name": "id",
-        "type": "bytes32"
-      }
-    ],
-    "name": "ChainlinkCancelled",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "bytes32",
-        "name": "id",
-        "type": "bytes32"
-      }
-    ],
-    "name": "ChainlinkFulfilled",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "bytes32",
-        "name": "id",
-        "type": "bytes32"
-      }
-    ],
-    "name": "ChainlinkRequested",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_from",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "RewardClaim",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      }
-    ],
-    "name": "betCreation",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "_from",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "enum superBetContract.betOption",
-        "name": "_choice",
-        "type": "uint8"
-      }
-    ],
-    "name": "userBet",
-    "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "_getOracleAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      }
-    ],
-    "name": "calculateReward",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_payment",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes4",
-        "name": "_callbackFunctionId",
-        "type": "bytes4"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_expiration",
-        "type": "uint256"
-      }
-    ],
-    "name": "cancelRequest",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      }
-    ],
-    "name": "claimRewards",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      }
-    ],
-    "name": "closeBet",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_idx",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_homeOdd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tiedOdd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_awayOdd",
-        "type": "uint256"
-      }
-    ],
-    "name": "createBet",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "depositDAI",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes[]",
-        "name": "_result",
-        "type": "bytes[]"
-      }
-    ],
-    "name": "fulfillSchedule",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_idx",
-        "type": "uint256"
-      }
-    ],
-    "name": "getGameCreate",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint32",
-            "name": "gameId",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint40",
-            "name": "startTime",
-            "type": "uint40"
-          },
-          {
-            "internalType": "string",
-            "name": "homeTeam",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "awayTeam",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct EnetscoresConsumer.GameCreate",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "getGameCreateStructLength",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_idx",
-        "type": "uint256"
-      }
-    ],
-    "name": "getGameResolve",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint32",
-            "name": "gameId",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint8",
-            "name": "homeScore",
-            "type": "uint8"
-          },
-          {
-            "internalType": "uint8",
-            "name": "awayScore",
-            "type": "uint8"
-          },
-          {
-            "internalType": "string",
-            "name": "status",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct EnetscoresConsumer.GameResolve",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "getGameResolveStructLength",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      }
-    ],
-    "name": "getUserBet",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "enum superBetContract.betOption",
-            "name": "option",
-            "type": "uint8"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "odd",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct superBetContract.betStruct",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "",
-        "type": "uint32"
-      }
-    ],
-    "name": "matchs",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "homeOdd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tiedOdd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "awayOdd",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "betOpen",
-        "type": "bool"
-      },
-      {
-        "internalType": "uint256",
-        "name": "homeTotalBets",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tiedTotalBets",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "awayTotalBets",
-        "type": "uint256"
-      },
-      {
-        "internalType": "enum superBetContract.betOption",
-        "name": "winner",
-        "type": "uint8"
-      },
-      {
-        "internalType": "bool",
-        "name": "winnerResolved",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      },
-      {
-        "internalType": "enum superBetContract.betOption",
-        "name": "_winner",
-        "type": "uint8"
-      }
-    ],
-    "name": "mockWinner",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "mockedGameCreateMatch",
-    "outputs": [
-      {
-        "internalType": "uint32",
-        "name": "gameId",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint40",
-        "name": "startTime",
-        "type": "uint40"
-      },
-      {
-        "internalType": "string",
-        "name": "homeTeam",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "awayTeam",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "mockedGameResolveMatch",
-    "outputs": [
-      {
-        "internalType": "uint32",
-        "name": "gameId",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint8",
-        "name": "homeScore",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint8",
-        "name": "awayScore",
-        "type": "uint8"
-      },
-      {
-        "internalType": "string",
-        "name": "status",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "requestIdGames",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_specId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_payment",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_market",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_leagueId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_date",
-        "type": "uint256"
-      }
-    ],
-    "name": "requestSchedule",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_specId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_payment",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_market",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_leagueId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_date",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_gameIds",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "requestSchedule",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_requestIdGameResolve",
-        "type": "bytes32"
-      }
-    ],
-    "name": "resolveWinner",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "_gameId",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "enum superBetContract.betOption",
-        "name": "_choice",
-        "type": "uint8"
-      }
-    ],
-    "name": "setBet",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_oracle",
-        "type": "address"
-      }
-    ],
-    "name": "setOracle",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes[]",
-        "name": "_games",
-        "type": "bytes[]"
-      }
-    ],
-    "name": "setRequestIdGames",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "temporalRewardPublic",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "withdrawDAI",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address payable",
-        "name": "_payee",
-        "type": "address"
-      }
-    ],
-    "name": "withdrawLink",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_tokenAddress",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "FailedTransferLINK",
+		"type": "error"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "id",
+				"type": "bytes32"
+			}
+		],
+		"name": "ChainlinkCancelled",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "id",
+				"type": "bytes32"
+			}
+		],
+		"name": "ChainlinkFulfilled",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "id",
+				"type": "bytes32"
+			}
+		],
+		"name": "ChainlinkRequested",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "gameId",
+				"type": "uint32"
+			}
+		],
+		"name": "betClosed",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "gameId",
+				"type": "uint32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint40",
+				"name": "startTime",
+				"type": "uint40"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "homeTeam",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "awayTeam",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "leagueId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_homeOdd",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_tiedOdd",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_awayOdd",
+				"type": "uint256"
+			}
+		],
+		"name": "betCreated",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_payment",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes4",
+				"name": "_callbackFunctionId",
+				"type": "bytes4"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_expiration",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelRequest",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "_gameId",
+				"type": "uint32"
+			}
+		],
+		"name": "claimRewards",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "_gameId",
+				"type": "uint32"
+			}
+		],
+		"name": "closeBet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_homeOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_tiedOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_awayOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "leagueId",
+				"type": "uint256"
+			}
+		],
+		"name": "createBet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "depositDAI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes[]",
+				"name": "_result",
+				"type": "bytes[]"
+			}
+		],
+		"name": "fulfillSchedule",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "gameId",
+				"type": "uint32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "homeScore",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "awayScore",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "status",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum superBetContract.betOption",
+				"name": "winner",
+				"type": "uint8"
+			}
+		],
+		"name": "matchResolved",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_specId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_payment",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_market",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_leagueId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_date",
+				"type": "uint256"
+			}
+		],
+		"name": "requestSchedule",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_specId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_payment",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_market",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_leagueId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_date",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_gameIds",
+				"type": "uint256[]"
+			}
+		],
+		"name": "requestSchedule",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "_gameId",
+				"type": "uint32"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_requestIdGameResolve",
+				"type": "bytes32"
+			}
+		],
+		"name": "resolveWinner",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "gameId",
+				"type": "uint32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "rewardClaimed",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "_gameId",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum superBetContract.betOption",
+				"name": "_choice",
+				"type": "uint8"
+			}
+		],
+		"name": "setBet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_oracle",
+				"type": "address"
+			}
+		],
+		"name": "setOracle",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes[]",
+				"name": "_games",
+				"type": "bytes[]"
+			}
+		],
+		"name": "setRequestIdGames",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "gameId",
+				"type": "uint32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum superBetContract.betOption",
+				"name": "choice",
+				"type": "uint8"
+			}
+		],
+		"name": "userBet",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawDAI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address payable",
+				"name": "_payee",
+				"type": "address"
+			}
+		],
+		"name": "withdrawLink",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_getOracleAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "_gameId",
+				"type": "uint32"
+			}
+		],
+		"name": "calculateReward",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getGameCreate",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint32",
+						"name": "gameId",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint40",
+						"name": "startTime",
+						"type": "uint40"
+					},
+					{
+						"internalType": "string",
+						"name": "homeTeam",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "awayTeam",
+						"type": "string"
+					}
+				],
+				"internalType": "struct EnetscoresConsumer.GameCreate",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			}
+		],
+		"name": "getGameCreateStructLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getGameResolve",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint32",
+						"name": "gameId",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint8",
+						"name": "homeScore",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint8",
+						"name": "awayScore",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "status",
+						"type": "string"
+					}
+				],
+				"internalType": "struct EnetscoresConsumer.GameResolve",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "_requestId",
+				"type": "bytes32"
+			}
+		],
+		"name": "getGameResolveStructLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "_gameId",
+				"type": "uint32"
+			}
+		],
+		"name": "getUserBet",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "enum superBetContract.betOption",
+						"name": "option",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "odd",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct superBetContract.betStruct",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			}
+		],
+		"name": "matchs",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "homeOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tiedOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "awayOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "betOpen",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "homeTotalBets",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tiedTotalBets",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "awayTotalBets",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum superBetContract.betOption",
+				"name": "winner",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bool",
+				"name": "winnerResolved",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requestIdGames",
+		"outputs": [
+			{
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ]

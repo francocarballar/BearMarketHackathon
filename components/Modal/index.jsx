@@ -12,8 +12,7 @@ import {
   betContractAbi,
   daiContractAddress,
   superBetContractAddress,
-  gameCreateRequestId,
-  gameResolveRequestId
+
 } from '../../constants'
 import { useSelector } from 'react-redux'
 
@@ -100,7 +99,7 @@ function ModalComponent () {
               
             }}
           >
-            Make Bet
+            Place Bet
           </Button>
         </Modal.Footer>
       </Modal>

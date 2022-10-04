@@ -1,19 +1,14 @@
 import Moralis_v2 from 'moralis'
 import Moralis from 'moralis-v1'
-import { betContractAbi } from '../constants'
+import moralisDB from './getMoralisDb'
 
 const allMatches = []
 
-const serverUrl = 'https://dcnqrknq91by.usemoralis.com:2053/server'
-const appId = '4uiRUothrilXBqrtJLaCow0Xs9K7GgFWZ6IXbVYg'
-const masterKey = '4uiRUothrilXBqrtJLaCow0Xs9K7GgFWZ6IXbVYg'
 
 export default async function getMatches () {
   await Moralis_v2.start({
-    apiKey: 'O3i5jPl78uSeh61yMkj2W4iaTXgZtch2cmiCngwcwTJPbfmgcqnmSiGZvtgOwel7'
+    apiKey: "O3i5jPl78uSeh61yMkj2W4iaTXgZtch2cmiCngwcwTJPbfmgcqnmSiGZvtgOwel7"
   })
-
-  await Moralis.start({ serverUrl, appId, masterKey })
 
   const betsCreated = Moralis.Object.extend('betCreated')
   const query = new Moralis.Query(betsCreated)
