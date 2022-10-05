@@ -13,8 +13,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ContainerAddress } from '../ContainerAddress'
 import { Context } from '../../context'
+import {
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite
+} from 'wagmi'
+import {
+  daiAbi,
+  betContractAbi,
+  daiContractAddress,
+  superBetContractAddress,
 
-function Header () {
+} from '../../constants'
+
+function Header() {
   const { mySession, viewTablet } = useContext(Context)
   const { isDark } = useTheme()
   const collapseItems = ['Profile', 'Activity', 'My Settings', 'Log Out']
@@ -29,6 +41,61 @@ function Header () {
       setNotConnect(false)
     }
   }, [mySession])
+
+
+  const faucet = usePrepareContractWrite({
+    chainId: 0x5,
+    addressOrName: daiContractAddress,
+    contractInterface: daiAbi,
+    functionName: 'faucet',
+    args: [
+      "100000000000000000000"
+    ]
+  })
+  const _faucet = useContractWrite(faucet.config)
+
+  //add token to metamask
+  const tokenAddress = "0x29282139fD1A88ccAED6d3bb7f547192144C0f95";
+  const tokenSymbol = "DAI";
+  const tokenDecimals = 18;
+
+  //Check if the MetaMask extension is installed
+  const isMetaMaskInstalled = () => {
+    //Have to check the ethereum binding on the window object to see if it's installed
+    const { ethereum } = window;
+    return Boolean(ethereum && ethereum.isMetaMask);
+  };
+
+
+  async function addTokenToMetamask(){
+    if (!isMetaMaskInstalled()) {
+      console.log("MetaMask is not installed!");
+      return;
+    }
+    try {
+      // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+      const wasAdded = await ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20", // Initially only supports ERC20, but eventually more!
+          options: {
+            address: tokenAddress, // The address that the token is at.
+            symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: tokenDecimals, // The number of decimals in the token
+          },
+        },
+      });
+      if (wasAdded) {
+        console.log("Token Sucessfully Added!");
+      } else {
+        console.log("Token Wasnt Added!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <>
       <Navbar isBordered={isDark} variant='sticky'>
@@ -46,6 +113,8 @@ function Header () {
             width={180}
             height={50}
           />
+
+
         </Navbar.Brand>
         {connect && (
           <Navbar.Content
@@ -98,6 +167,32 @@ function Header () {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+
+            <Button
+              bordered
+              color='primary'
+              auto
+              ghost
+              onClick={() => {
+                addTokenToMetamask()
+              }
+              }
+            >
+              Add token to metamask
+            </Button>
+
+            <Button
+              bordered
+              color='primary'
+              auto
+              ghost
+              onClick={() => {
+                _faucet.write()
+              }
+              }
+            >
+              Get 100 DAI
+            </Button>
             {viewTablet && (
               <Grid>
                 <Button

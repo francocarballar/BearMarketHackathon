@@ -1,27 +1,17 @@
 import React from 'react'
 import styles from '../styles/Home.module.css'
 import { CardResults } from '../components/CardResults'
-import getMatches from '../helpers/getMatchesFinished'
 import { useContext, useState, useEffect } from 'react'
 import { Loading, Grid } from '@nextui-org/react'
 import getUserBets from '../helpers/getUserBets'
-import Moralis from 'moralis-v1'
-import moralisDB from '../helpers/getMoralisDb'
+
 
 export default function results() {
-
-
-  const [matchesFinished, setMatchesFinished] = useState([])
   const [userBets, setUsersBets] = useState([])
-  
 
   async function getMatchesFinished() {
-    const matchesFinished  = await getMatches()
     const _userBets = await getUserBets()
-
-    setMatchesFinished(matchesFinished)
     setUsersBets(_userBets)
-
   }
 
   useEffect(() => {

@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux'
 function ModalComponent () {
 
   const userChoice = useSelector((state) => state.bet.value)
-  // console.log(userChoice)
   const choiceSelected = userChoice[1]
   const gameIdSelected = userChoice[0]
   

@@ -29,7 +29,7 @@ export default function Home ({ user, session }) {
 
   useEffect(() => {
     getAllMatches()
-  },[matches[0]])
+  },[])
 
   useEffect(() => {
     setAddress(user.address)

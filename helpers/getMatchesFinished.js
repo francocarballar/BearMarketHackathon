@@ -4,9 +4,7 @@ import { betContractAbi } from '../constants'
 import moralisDB from './getMoralisDb'
 
 
-const allMatches = []
 const matchesFinished = []
-
 
 
 export default async function getMatches () {

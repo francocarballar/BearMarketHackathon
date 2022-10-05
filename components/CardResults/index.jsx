@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../../context'
-import { Modal, Input, Button, Text } from '@nextui-org/react'
 import {
   useContractRead,
   usePrepareContractWrite,
@@ -8,18 +7,12 @@ import {
 } from 'wagmi'
 
 import {
-  daiAbi,
   betContractAbi,
-  daiContractAddress,
   superBetContractAddress,
 } from '../../constants'
 
 
 import Moralis from 'moralis-v1'
-import moralisDB from '../../helpers/getMoralisDb'
-import moralisv2 from '../../helpers/getMoralisv2'
-
-import Moralis_v2 from 'moralis'
 
 function CardResults({ gameId, choice }) {
   const { myAddress } = useContext(Context)
@@ -42,12 +35,11 @@ function CardResults({ gameId, choice }) {
     queryMatchResolved.equalTo("gameId", gameId)
     try {
       const _match = await queryMatchResolved.first();
-      if (_match.winner == choice) {
+      if (_match.get("winner") == choice) {
         setClaimButton(true);
       }
     }
     catch {
-      console.log("gameId ", gameId, "No termino este partido")
     }
   }
 
@@ -67,7 +59,6 @@ function CardResults({ gameId, choice }) {
       setStatus("finished")
     }
     catch {
-      console.log("gameId ", gameId, "No termino este partido")
       setStatus("Match pending")
     }
   }

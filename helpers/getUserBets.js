@@ -1,25 +1,5 @@
-import Moralis_v2 from 'moralis'
 import Moralis from 'moralis-v1'
-import { betContractAbi } from '../constants'
 import moralisDB from './getMoralisDb'
-
-// const userBetsArray = []
-// export default async function getUserBets (userAddress) {
-
-//   const userBets = Moralis.Object.extend('userBet')
-//   const query = new Moralis.Query(userBets)
-//   const thisUserBets = await query.find("from",userAddress)
-
-
-//   for (let i = 0; i < thisUserBets.length; i++) {
-//         const object = thisUserBets[i]
-//         var bet = new Object();
-//         bet.gameId = object.get('gameId')
-//         userBetsArray.push(bet.gameId)
-//     }
-
-//   return userBetsArray
-// }
 
 const userBets = []
 
