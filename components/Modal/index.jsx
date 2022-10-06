@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Modal, Input, Button, Text } from '@nextui-org/react'
 import { Context } from '../../context'
-
+import { ethers } from 'ethers'
 import {
   useContractRead,
   usePrepareContractWrite,
@@ -16,26 +16,40 @@ import {
 } from '../../constants'
 import { useSelector } from 'react-redux'
 
-function ModalComponent () {
+function ModalComponent() {
 
   const userChoice = useSelector((state) => state.bet.value)
   const choiceSelected = userChoice[1]
   const gameIdSelected = userChoice[0]
-  
+  const odd = userChoice[2]
+
   const [inputValue, setInputValue] = useState("")
+  const [inputValueParsed, setInputValueParsed] = useState("0")
+  const [earn, setEarn] = useState("0")
+
+
+  useEffect(() => {
+    if (inputValue != "") {
+      const iv = ethers.utils.parseUnits(inputValue, 18)
+      const ivp = ethers.utils.formatUnits(iv, "wei")
+      setInputValueParsed(ivp)
+      const _earn = inputValue * odd / 10 ** 18
+      setEarn(_earn )
+    }
+
+  }, [inputValue]);
+
+
 
   const { visibleModal, setVisibleModal } = useContext(Context)
-  const closeHandler = () => {
-    setVisibleModal(false)
-  }
-  const approve = usePrepareContractWrite({
+   const approve = usePrepareContractWrite({
     chainId: 0x5,
     addressOrName: daiContractAddress,
     contractInterface: daiAbi,
     functionName: 'approve',
     args: [
       superBetContractAddress,
-      inputValue
+      inputValueParsed
     ]
   })
   const _approve = useContractWrite(approve.config)
@@ -44,10 +58,11 @@ function ModalComponent () {
     addressOrName: superBetContractAddress,
     contractInterface: betContractAbi,
     functionName: 'setBet',
-    args: [gameIdSelected, inputValue, choiceSelected]
-    
+    args: [gameIdSelected, inputValueParsed, choiceSelected]
+
   })
   const _setBet = useContractWrite(setBet.config)
+
   return (
     <div>
       <Modal
@@ -55,8 +70,14 @@ function ModalComponent () {
         blur
         aria-labelledby='modal-title'
         open={visibleModal}
-        onClose={closeHandler}
-      >
+        onClose={() => 
+          {
+            setVisibleModal(false)
+            setInputValue("")
+            setEarn("")
+          }
+        
+        }      >
         <Modal.Header>
           <Text id='modal-title' b size={18}>
             Enter your bet
@@ -70,13 +91,16 @@ function ModalComponent () {
             color='primary'
             size='lg'
             placeholder='5000'
-            onChange={ (e) => {
-              e.preventDefault()
+            onChange={(e) => {
               setInputValue(e.target.value)
             }
-          }
-          value={inputValue}
+            }
+            value={inputValue}
           />
+
+          <Text id='modal-title' b size={13}>
+            You will earn {earn}
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -95,7 +119,7 @@ function ModalComponent () {
             onClick={() => {
               setVisibleModal(false)
               _setBet.write()
-              
+
             }}
           >
             Place Bet

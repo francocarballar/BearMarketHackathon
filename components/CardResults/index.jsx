@@ -11,6 +11,7 @@ import {
   superBetContractAddress,
 } from '../../constants'
 
+import { Modal, Input, Button, Text } from '@nextui-org/react'
 
 import Moralis from 'moralis-v1'
 
@@ -80,30 +81,42 @@ function CardResults({ gameId, choice }) {
 
   return (
 
-    
+
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 text-center border-2 w-full flex flex-col md:max-w-5xl'>
       <div className='flex flex-row justify-center items-center text-white text-center py-3 px-5 md:flex-col md:justify-center md:gap-3'>
-    {  status === "finished" ? (
-    <p className='text-primary'>{gameId} : {homeTeam} ({homeScore}) - {awayTeam} ({awayScore}) - FINISHED</p> ) : (
-      <p className='text-primary'>{gameId} : {homeTeam} VS {awayTeam} - PENDING  </p>
-    )
-    }
+        {status === "finished" ? (
+          <div>
+          <h3 className='font-bold md:w-90'>{homeTeam} ({homeScore}) - {awayTeam} ({awayScore}) </h3>
+          <p className='text-primary'>FINISHED</p>
+          </div>
+            ) : (
+          <div>
+          <h3 className='font-bold md:w-90'> {homeTeam} VS {awayTeam}</h3>
+          <p className='text-primary'>PENDING</p>
+          </div>
+        )
+        }
       </div>
       <div className='px-6 py-6 pt-3 flex flex-col justify-center items-center gap-3 md:flex-row'>
         <div className='flex justify-center items-center w-full'>
 
-         { claimButton === true ? (
-         
-          <button
-            className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-48 lg:w-40'
-            onClick={() => _claimRewards.write()}
-          >
-            Claim
-          </button>) : (
+          {claimButton === true ? (<div>
+
+            <Text id='modal-title' b size={13}>
+              You can claim {} DAI
+            </Text>
+
+            <Button
+              className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-48 lg:w-40'
+              onClick={() => _claimRewards.write()}
+            >
+              Claim
+            </Button></div>
+          ) : (
             <span></span>
           )
           }
-          
+
         </div>
       </div>
     </article>

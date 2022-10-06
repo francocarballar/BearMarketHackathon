@@ -16,6 +16,8 @@ contract superBetContract is EnetscoresConsumer{
         betOption option;
         uint256 amount;
         uint odd;
+        bool alreadyBet;
+        bool rewardClaimed;
     }
 
     struct matchStruct {
@@ -60,9 +62,10 @@ contract superBetContract is EnetscoresConsumer{
             emit betCreated(gameId, startTime, homeTeam, awayTeam, leagueId, _homeOdd, _tiedOdd, _awayOdd);
     }
 
-    event userBet(address indexed from, uint32 gameId, uint amount, betOption choice);
-    function setBet(uint32 _gameId, uint _amount, betOption _choice ) public {
+    event userBet(address indexed from, uint32 gameId, uint amount, betOption choice, uint odd );
+    function setBet(uint32 _gameId, uint _amount, betOption _choice) public {
         require (matchs[_gameId].betOpen == true, "bet closed");
+        require (matchs[_gameId].userBets[msg.sender].alreadyBet == false, "you have already bet");
         if(_choice == betOption.home){
         matchs[_gameId].userBets[msg.sender].odd = matchs[_gameId].homeOdd;
         matchs[_gameId].homeTotalBets += _amount;
@@ -77,8 +80,9 @@ contract superBetContract is EnetscoresConsumer{
         }
         matchs[_gameId].userBets[msg.sender].option = _choice;
         matchs[_gameId].userBets[msg.sender].amount += _amount;
+        matchs[_gameId].userBets[msg.sender].alreadyBet = true;
         depositDAI(_amount);
-        emit userBet(msg.sender, _gameId, _amount, _choice);
+        emit userBet(msg.sender, _gameId, _amount, _choice,  matchs[_gameId].userBets[msg.sender].odd);
     }
 
     event betClosed(uint32 gameId);
@@ -120,9 +124,11 @@ contract superBetContract is EnetscoresConsumer{
     function claimRewards(uint32 _gameId) public {
         require (matchs[_gameId].winnerResolved == true, "Winner not resolved");
         require (matchs[_gameId].winner == matchs[_gameId].userBets[msg.sender].option, "No rewards");
-        //Calculo del reward
+        require (matchs[_gameId].userBets[msg.sender].rewardClaimed == false, "rewards already claimed");
+       //Calculo del reward
         uint amount = matchs[_gameId].userBets[msg.sender].amount * matchs[_gameId].userBets[msg.sender].odd / 10**18; //1 eth     
         require(amount<=IERC20(tokenAddress).balanceOf(address(this)), "Not enought balance in treasury");
+        matchs[_gameId].userBets[msg.sender].rewardClaimed=true;
         IERC20(tokenAddress).transfer(msg.sender, amount);
         emit rewardClaimed(msg.sender, _gameId, amount);
     }

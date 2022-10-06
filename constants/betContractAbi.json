@@ -487,6 +487,12 @@
 				"internalType": "enum superBetContract.betOption",
 				"name": "choice",
 				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "odd",
+				"type": "uint256"
 			}
 		],
 		"name": "userBet",
@@ -711,6 +717,16 @@
 						"internalType": "uint256",
 						"name": "odd",
 						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "alreadyBet",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "rewardClaimed",
+						"type": "bool"
 					}
 				],
 				"internalType": "struct superBetContract.betStruct",

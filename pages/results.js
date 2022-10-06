@@ -2,15 +2,18 @@ import React from 'react'
 import styles from '../styles/Home.module.css'
 import { CardResults } from '../components/CardResults'
 import { useContext, useState, useEffect } from 'react'
+import { Context } from '../context'
 import { Loading, Grid } from '@nextui-org/react'
 import getUserBets from '../helpers/getUserBets'
 
 
 export default function results() {
   const [userBets, setUsersBets] = useState([])
+  const { myAddress } = useContext(Context)
+
 
   async function getMatchesFinished() {
-    const _userBets = await getUserBets()
+    const _userBets = await getUserBets(myAddress)
     setUsersBets(_userBets)
   }
 

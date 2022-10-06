@@ -1,16 +1,40 @@
 import Image from 'next/image'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../../context'
 import { ethers } from 'ethers'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserChoice } from '../../pages/slices/betSlice'
 
+import Moralis from 'moralis-v1'
 
 
+const betClosed = Moralis.Object.extend('betClosed')
+const queryBetsClosed = new Moralis.Query(betClosed)
 
-function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameId }) {
+
+function CardMatch({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameId }) {
   const dispatch = useDispatch()
+  const [betClosed, setBetClosed] = useState(false)
+
+
+  async function getBetsClosed() {
+    queryBetsClosed.equalTo("gameId", "4010258")
+    try {
+      const betClosed = await queryBetsClosed.first();
+      if(betClosed.get("gameId") == gameId) {
+        setBetClosed(true)
+    }
+    }
+    catch {
+      console.log("nothing")
+      
+    }
+  }
+
+  useEffect(() => {
+    getBetsClosed()
+  }, [])
 
 
   const { setVisibleModal } = useContext(Context)
@@ -27,19 +51,19 @@ function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameI
     setStyleHome(styleButtonBet)
     setStyleAway({})
     setStyleTie({})
-    dispatch(setUserChoice([gameId,"0"]))
+    dispatch(setUserChoice([gameId, "0", homeOdd]))
   }
   const clickAway = () => {
     setStyleHome({})
     setStyleAway(styleButtonBet)
     setStyleTie({})
-    dispatch(setUserChoice([gameId,"1"]))
+    dispatch(setUserChoice([gameId, "1", awayOdd]))
   }
   const clickTie = () => {
     setStyleHome({})
     setStyleAway({})
     setStyleTie(styleButtonBet)
-    dispatch(setUserChoice([gameId,"2"]))
+    dispatch(setUserChoice([gameId, "2", tiedOdd]))
   }
   const [ieemageSrc1, setImageSrc1] = useState('')
   var imageSrc1
@@ -245,8 +269,11 @@ function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameI
       break
   }
   return (
+    <div>
+    { betClosed === true ? (<span></span>) : ( 
     <article className=' max-w-xs shadow-xl rounded-2xl border-gray-700 border-2 w-full md:flex md:flex-row md:max-w-4xl'>
-      <div className='flex flex-row justify-between items-center text-white py-3 px-5 md:flex-col md:justify-center md:gap-3'>
+    
+     <div className='flex flex-row justify-between items-center text-white py-3 px-5 md:flex-col md:justify-center md:gap-3'>
         <p>{time}</p>
         <p className='text-primary'>{date}</p>
       </div>
@@ -278,7 +305,7 @@ function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameI
               style={styleHome}
               onClick={clickHome}
             >
-             {ethers.utils.formatEther(homeOdd)} 
+              {ethers.utils.formatEther(homeOdd)}
             </button>
           </div>
           <div className='flex flex-col gap-3 justify-center items-center text-center'>
@@ -301,18 +328,30 @@ function CardMatch ({ team1, team2, date, time, homeOdd, awayOdd, tiedOdd, gameI
               {ethers.utils.formatEther(awayOdd)}
             </button>
           </div>
-         
+
         </div>
         <div className='flex justify-center items-center w-full md:pt-10'>
           <button
             className='w-full px-4 py-2 rounded-md text-white bg-primary font-bold md:w-30'
-            onClick={() => setVisibleModal(true)}
+            onClick={
+
+              () => {
+                setVisibleModal(true)
+                setStyleHome({})
+                setStyleAway({})
+                setStyleTie({})
+              }
+            }
           >
             Place Bet
           </button>
         </div>
       </div>
+  
+   
     </article>
+    ) }
+    </div>
   )
 }
 

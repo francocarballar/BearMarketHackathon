@@ -14,15 +14,12 @@ import Link from 'next/link'
 import { ContainerAddress } from '../ContainerAddress'
 import { Context } from '../../context'
 import {
-  useContractRead,
   usePrepareContractWrite,
   useContractWrite
 } from 'wagmi'
 import {
   daiAbi,
-  betContractAbi,
   daiContractAddress,
-  superBetContractAddress,
 
 } from '../../constants'
 
